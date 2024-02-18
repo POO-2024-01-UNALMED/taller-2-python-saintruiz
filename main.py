@@ -16,19 +16,22 @@ class Auto:
         self.marca=marca
         self.motor=motor
         self.registro=registro
+
     def cantidadAsientos(self):
         contador=0
-
-        for i in self.asientos:
-            contador+=1
-
+        for i in range(len(self.asientos)-1):
+            if self.asientos[i]!=None:
+                contador+=1
+            else:
+                pass
         return contador
     
     def verificarIntegridad(self):
         if self.registro==self.motor.registro:
-            for i in self.asientos:
-                if self.asientos[i].registro!=self.registro:
-                    return "Las piezas no son originales"
+            for i in range(len(self.asientos)-1):
+                if self.asientos[i]!=None:
+                    if self.asientos[i].registro!=self.registro:
+                        return "Las piezas no son originales"
             return "Auto original" 
         else:
             return "Las piezas no son originales"
@@ -44,8 +47,3 @@ class Motor:
     def asignarTipo(self, String):
         if String=="electrico" or String== "gasolina":
             self.tipo=String
-
-
-a = Auto("model 3", 33000, list(),"tesla", Motor(4, "electrico", 142), 341)
-a.asientos = [Asiento("blanco", 5000, 435),None, None, Asiento("blanco", 5000, 435), None]
-print(a.cantidadAsientos())
